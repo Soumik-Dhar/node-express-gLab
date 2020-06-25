@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -24,16 +26,8 @@ app.get("/users/:user", function(req, res) {
   res.json(jsonData);
 });
 
-app.post("/login", function(req, res) {
-  const user = {
-    username: req.body.username,
-    password: req.body.password
-  };
-  const credentials = {
-    username: "MgOvercast",
-    password: "password-_-"
-  };
-  if ((user.username === credentials.username) && (user.password === credentials.password)) {
+app.post("/users/login", function(req, res) {
+  if ((req.body.username === process.env.name) && (req.body.password === process.env.pass)) {
     res.json({
       success: true,
       message: "Username and Password match!",
